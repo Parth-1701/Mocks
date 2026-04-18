@@ -19,7 +19,10 @@
             </div>
             <div class="flex items-center gap-4">
                 <template x-if="!isLoggedIn">
-                    <button @click="page = 'login'" class="text-blue-600 font-medium hover:text-blue-800">Login</button>
+                    <button id="loginBtn" onclick="window.location.href='login.html'" 
+                    class="bg-blue-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-blue-700 transition">
+                Login
+            </button>
                 </template>
                 <template x-if="isLoggedIn">
                     <div class="flex items-center gap-4">
