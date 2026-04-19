@@ -193,66 +193,28 @@
             }
         }
     </script>
-        <script>
-        // Initialize Supabase
-const supabaseUrl = 'https://saqbtjzxdrfpwrcpgdxu.supabase.co'
-const supabaseKey = 'sb_publishable_AsjwUC2XUzvDk1p0HYhyxA_8-RpYaOP'
-const supabase = supabase.createClient(supabaseUrl, supabaseKey)
+    <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
 
-function app() {
-    return {
-        page: 'home',
-        isLoggedIn: false,
-        userEmail: '',
-        loginForm: { email: '', password: '' },
-        // ... (keep your other variables like exams and dummyLeaderboard)
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyBsMWa4Tup5nj6Xh5ev3FLiftGjWZGwukk",
+    authDomain: "sigmascore300.firebaseapp.com",
+    projectId: "sigmascore300",
+    storageBucket: "sigmascore300.firebasestorage.app",
+    messagingSenderId: "293195338803",
+    appId: "1:293195338803:web:039dd76be85786a799ff46",
+    measurementId: "G-XYXPMZPYBC"
+  };
 
-        // NEW: Check login status when the page loads
-        async init() {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (session) {
-                this.isLoggedIn = true;
-                this.userEmail = session.user.email;
-            }
-        },
-
-        // UPDATED: Real Login Function
-        async login() {
-            const { data, error } = await supabase.auth.signInWithPassword({
-                email: this.loginForm.email,
-                password: this.loginForm.password,
-            });
-
-            if (error) {
-                alert("Login Error: " + error.message);
-            } else {
-                this.isLoggedIn = true;
-                this.userEmail = data.user.email;
-                this.page = 'home';
-            }
-        },
-
-        // UPDATED: Real Logout Function
-        async logout() {
-            await supabase.auth.signOut();
-            this.isLoggedIn = false;
-            this.userEmail = '';
-            this.page = 'home';
-        },
-
-        // NEW: Fetch Real Leaderboard from Supabase
-        async fetchLeaderboard(testId) {
-            const { data, error } = await supabase
-                .from('submissions')
-                .select('user_email, score, accuracy')
-                .eq('test_id', testId)
-                .order('score', { ascending: false })
-                .limit(10);
-            
-            if (!error) this.dummyLeaderboard = data;
-        }
-    }
-}
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
     </script>
 </body>
 </html>
